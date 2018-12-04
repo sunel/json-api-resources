@@ -1,0 +1,28 @@
+{
+    "name": "sunel/json-api-resources",
+    "description": "Create {JSON:API} formatted API Response",
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Sunel Tr",
+          "email": "sunelbe@gmail.com"
+        }
+    ],
+    "require" : {
+        "illuminate/http": "^5.5",
+        "illuminate/pagination": "^5.5",
+        "illuminate/contracts": "^5.5"
+    },
+    "autoload": {        
+        "psr-4": {
+            "ApiHelper\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ApiHelper\\JsonApiServiceProvider"
+            ]
+        }
+    },
+}
