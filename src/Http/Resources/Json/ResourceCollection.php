@@ -4,7 +4,7 @@ namespace ApiHelper\Http\Resources\Json;
 
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Pagination\AbstractPaginator;
-use ApiHelper\Http\Resources\IncludeRegistery;
+use ApiHelper\IncludeRegistery;
 
 class ResourceCollection extends \Illuminate\Http\Resources\Json\ResourceCollection
 {

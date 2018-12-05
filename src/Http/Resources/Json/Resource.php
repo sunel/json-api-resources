@@ -3,7 +3,7 @@
 namespace ApiHelper\Http\Resources\Json;
 
 use Illuminate\Http\Resources\MissingValue;
-use ApiHelper\Http\Resources\IncludeRegistery;
+use ApiHelper\IncludeRegistery;
 
 class Resource extends \Illuminate\Http\Resources\Json\Resource
 {
@@ -23,7 +23,7 @@ class Resource extends \Illuminate\Http\Resources\Json\Resource
      */
     protected function loadRelation(RelationshipResource $relation, $request)
     {
-        if (!$this->noRelation && $request->getIncludes()->isNotEmpty()) {
+        if (!$this->noRelation) {
             $data = $relation->resolve($request);
 
             if (!blank($data)) {

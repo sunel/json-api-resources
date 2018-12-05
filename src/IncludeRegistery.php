@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiHelper\Http\Resources;
+namespace ApiHelper;
 
 use Illuminate\Http\Resources\MissingValue;
 

@@ -2,10 +2,14 @@
 
 namespace ApiHelper\Http\Resources\Json;
 
-use ApiHelper\Http\Resources\IncludeRegistery;
+use Illuminate\Support\Str;
+use ApiHelper\IncludeRegistery;
+use ApiHelper\Http\Concerns\InteractsWithRequest;
 
 class RelationshipResource extends \Illuminate\Http\Resources\Json\Resource
 {
+    use InteractsWithRequest;
+
     protected $casts = [];
 
     /**
@@ -16,31 +20,33 @@ class RelationshipResource extends \Illuminate\Http\Resources\Json\Resource
      */
     public function toArray($request)
     {
-        return $request->getIncludes()->mapWithKeys(function ($include) use ($request) {
+        return $this->getIncludes($request)->mapWithKeys(function ($include) use ($request) {
             return $this->callRealtion($include, $request);
         });
     }
 
     protected function callRealtion($include, $request)
     {
-        if (method_exists($this, $include)) {
-            return [ $include => $this->$include($request) ];
+        list($pass, $call) = $this->canCall($include);
+        if ($pass) {
+            return [ $include => $this->$call($request) ];
         }
 
         // We are basically looking at a relationships that is nested
-        
         $relations = collect(explode('.', $include));
 
         return $relations->filter(function ($relationship, $key) {
-            return method_exists($this, $relationship);
-        })->each(function ($relationship, $key) {
-            $relationship = array_get($this->casts, $relationship, $relationship);
-            if (!$this->resource->relationLoaded($relationship)) {
-                $this->resource->load($relationship);
-            }
+            list($pass, $call) = $this->canCall($relationship);
+            return $pass;
         })->mapWithKeys(function ($relationship) use ($request) {
             return $this->callRealtion($relationship, $request);
         });
+    }
+
+    public function canCall($relationship)
+    {
+        $call = array_get($this->casts, $relationship, $relationship);
+        return [$this->resource->relationLoaded($relationship) && method_exists($this, $call), $call];
     }
 
     /**
