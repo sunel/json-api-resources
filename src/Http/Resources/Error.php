@@ -3,9 +3,9 @@
 namespace ApiHelper\Http\Resources;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\Resource;
 
-class Error extends JsonResource
+class Error extends Resource
 {
     /**
      * Create a new resource instance.
