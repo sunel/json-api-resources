@@ -6,7 +6,13 @@ use Illuminate\Support\Str;
 use ApiHelper\IncludeRegistery;
 use ApiHelper\Http\Concerns\InteractsWithRequest;
 
-class RelationshipResource extends \Illuminate\Http\Resources\Json\Resource
+if (class_exists(\Illuminate\Http\Resources\Json\Resource::class)) {
+    class RelationshipResourceMiddleManClass extends \Illuminate\Http\Resources\Json\Resource { }
+} else {
+    class RelationshipResourceMiddleManClass extends \Illuminate\Http\Resources\Json\JsonResource { }
+}
+
+class RelationshipResource extends RelationshipResourceMiddleManClass
 {
     use InteractsWithRequest;
 

@@ -5,7 +5,14 @@ namespace ApiHelper\Http\Resources\Json;
 use Illuminate\Http\Resources\MissingValue;
 use ApiHelper\IncludeRegistery;
 
-class Resource extends \Illuminate\Http\Resources\Json\Resource
+
+if (class_exists(\Illuminate\Http\Resources\Json\Resource::class)) {
+    class ResourceMiddleManClass extends \Illuminate\Http\Resources\Json\Resource { }
+} else {
+    class ResourceMiddleManClass extends \Illuminate\Http\Resources\Json\JsonResource { }
+}
+
+class Resource extends ResourceMiddleManClass
 {
     /**
      * Removes the relation data when enabled.
