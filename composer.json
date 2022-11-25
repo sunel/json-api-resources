@@ -9,11 +9,11 @@
         }
     ],
     "require" : {
-        "illuminate/http": "^6.0|^7.0|^8.0",
-        "illuminate/pagination": "^6.0|^7.0|^8.0",
-        "illuminate/contracts": "^6.0|^7.0|^8.0"
+        "illuminate/http": "^6.0|^7.0|^8.0|^9.0",
+        "illuminate/pagination": "^6.0|^7.0|^8.0|^9.0",
+        "illuminate/contracts": "^6.0|^7.0|^8.0|^9.0"
     },
-    "autoload": {        
+    "autoload": {
         "psr-4": {
             "ApiHelper\\": "src/"
         }
